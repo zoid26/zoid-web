@@ -1,0 +1,60 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+nav {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+nav a {
+    color: #ffd700;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px 12px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+nav a:hover {
+    background: #fff;
+    color: #c0392b;
+}
+
+header p {
+    font-style: italic;
+    margin-top: 5px;
+}
+
+h1, h2 {
+    color: #c0392b;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.emoji-banner {
+    font-size: 4rem;
+    text-align: center;
+    margin: 20px 0;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 50px;
+}

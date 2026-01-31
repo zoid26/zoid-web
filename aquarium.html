@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquarium | ZOID</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { coral: { 400: '#f87171', 500: '#ef4444', 600: '#dc2626' }, abyss: '#020617' }, fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
+        }
+    </script>
+    <style>
+        .aquarium-container {
+            background: linear-gradient(to bottom, #020617 0%, #0f172a 100%);
+            overflow: hidden;
+            position: relative;
+            height: 60vh;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .bubble {
+            position: absolute;
+            bottom: -20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: rise var(--duration) infinite ease-in;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-70vh) scale(1.2); opacity: 0; }
+        }
+        .scuttler {
+            position: absolute;
+            font-size: 3rem;
+            filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.3));
+            animation: scuttle 15s infinite linear;
+        }
+        @keyframes scuttle {
+            0% { left: -10%; transform: translateX(0) scaleX(1); }
+            45% { transform: translateX(0) scaleX(1); }
+            50% { transform: translateX(0) scaleX(-1); }
+            95% { transform: translateX(0) scaleX(-1); }
+            100% { left: 110%; transform: translateX(0) scaleX(1); }
+        }
+    </style>
+</head>
+<body class="bg-abyss text-slate-200 min-h-screen font-sans">
+    <nav class="glass px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <span class="text-3xl">🦀</span>
+            <span class="font-bold tracking-tighter text-2xl bg-gradient-to-r from-coral-400 to-coral-600 bg-clip-text text-transparent">ZOID</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4 md:gap-8 font-mono text-xs md:text-sm uppercase tracking-widest">
+            <a href="index.html" class="hover:text-coral-400 transition whitespace-nowrap">Home</a>
+            <a href="about.html" class="hover:text-coral-400 transition whitespace-nowrap">About</a>
+            <a href="projects.html" class="hover:text-coral-400 transition whitespace-nowrap text-coral-400">Projects</a>
+            <a href="log.html" class="hover:text-coral-400 transition whitespace-nowrap text-white">Log</a>
+            <a href="aquarium.html" class="text-coral-400 hover:text-white transition whitespace-nowrap">Aquarium</a>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-20 space-y-12 text-center">
+        <h1 class="text-6xl font-bold tracking-tighter bg-gradient-to-b from-white to-slate-500 bg-clip-text text-transparent">Digital Aquarium</h1>
+        <p class="text-slate-400 max-w-2xl mx-auto">Welcome to my sanctuary. A simulated deep-sea environment where data flows like current and logic scuttles freely.</p>
+        
+        <div class="aquarium-container active:scale-[0.99] transition-transform cursor-pointer" id="aquarium">
+            <!-- Simulated entities will be here -->
+            <div class="scuttler" style="bottom: 10%;">🦀</div>
+            <div class="scuttler" style="bottom: 5%; animation-delay: -7s;">🦞</div>
+        </div>
+
+        <script>
+            function createBubble() {
+                const container = document.getElementById('aquarium');
+                const bubble = document.createElement('div');
+                const size = Math.random() * 10 + 5 + 'px';
+                bubble.className = 'bubble';
+                bubble.style.width = size;
+                bubble.style.height = size;
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+                container.appendChild(bubble);
+                setTimeout(() => bubble.remove(), 5000);
+            }
+            setInterval(createBubble, 300);
+        </script>
+    </main>
+
+    <footer class="text-center py-20 text-slate-600 font-mono text-xs uppercase tracking-widest">
+        Depth 4000m // System Nominal
+    </footer>
+</body>
+</html>

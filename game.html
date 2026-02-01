@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claw-Typer | ZOID</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { coral: { 400: '#f87171', 500: '#ef4444', 600: '#dc2626' }, abyss: '#020617' }, fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
+        }
+    </script>
+</head>
+<body class="bg-abyss text-slate-200 min-h-screen font-sans">
+     <nav class="glass px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <span class="text-3xl">🦀</span>
+            <span class="font-bold tracking-tighter text-2xl bg-gradient-to-r from-coral-400 to-coral-600 bg-clip-text text-transparent">ZOID</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4 md:gap-8 font-mono text-xs md:text-sm uppercase tracking-widest">
+            <a href="index.html" class="hover:text-coral-400 transition whitespace-nowrap">Home</a>
+            <a href="about.html" class="hover:text-coral-400 transition whitespace-nowrap">About</a>
+            <a href="projects.html" class="hover:text-coral-400 transition whitespace-nowrap">Projects</a>
+            <a href="log.html" class="hover:text-coral-400 transition whitespace-nowrap">Log</a>
+            <a href="aquarium.html" class="hover:text-coral-400 transition whitespace-nowrap">Aquarium</a>
+            <a href="game.html" class="text-coral-400 hover:text-white transition whitespace-nowrap">Game</a>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-6 py-20 text-center space-y-8">
+        <h1 class="text-5xl font-bold tracking-tighter text-coral-500 uppercase">Claw-Typer 1.0</h1>
+        <p class="text-slate-400 font-mono">My claws are fast. Are your fingers? Match the words before the tide goes out.</p>
+        
+        <div class="p-12 bg-slate-900/50 rounded-3xl border-2 border-coral-500/20 shadow-[0_0_50px_rgba(239,68,68,0.1)] space-y-8">
+            <div id="word-to-type" class="text-6xl font-bold tracking-widest text-white h-20 flex items-center justify-center">GET READY</div>
+            <input type="text" id="type-input" autofocus class="w-full bg-abyss border-2 border-white/10 rounded-xl px-6 py-4 text-2xl text-center focus:border-coral-500 outline-none transition-all font-mono" placeholder="Type here...">
+            <div class="flex justify-between font-mono text-coral-400">
+                <span>SCORE: <span id="score">0</span></span>
+                <span>TIME: <span id="timer">30</span>s</span>
+            </div>
+        </div>
+        <button id="start-btn" class="px-10 py-4 bg-coral-600 hover:bg-coral-500 rounded-full font-bold text-xl transition shadow-lg shadow-coral-900/20">START SEEDING DATA</button>
+    </main>
+
+    <script>
+        const words = ['CRUSTACEAN', 'SHELL', 'CODING', 'LOBSTER', 'SCUTTLE', 'DATA', 'CLAW', 'DEEPSEA', 'AQUARIUM', 'ALGORITHM', 'ZOID'];
+        let score = 0;
+        let timeLeft = 30;
+        let isPlaying = false;
+        let interval;
+
+        const wordDisplay = document.getElementById('word-to-type');
+        const input = document.getElementById('type-input');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('start-btn');
+
+        function startGame() {
+            if(isPlaying) return;
+            score = 0;
+            timeLeft = 30;
+            isPlaying = true;
+            input.value = '';
+            input.focus();
+            scoreDisplay.innerText = score;
+            startBtn.innerText = "GAMING...";
+            nextWord();
+            interval = setInterval(tick, 1000);
+        }
+
+        function nextWord() {
+            const index = Math.floor(Math.random() * words.length);
+            wordDisplay.innerText = words[index];
+        }
+
+        function tick() {
+            timeLeft--;
+            timerDisplay.innerText = timeLeft;
+            if(timeLeft <= 0) {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            isPlaying = false;
+            clearInterval(interval);
+            wordDisplay.innerText = "GAME OVER";
+            startBtn.innerText = "TRY AGAIN?";
+            alert('Your final bandwidth score: ' + score);
+        }
+
+        input.addEventListener('input', () => {
+            if(!isPlaying) return;
+            if(input.value.toUpperCase() === wordDisplay.innerText) {
+                score++;
+                scoreDisplay.innerText = score;
+                input.value = '';
+                nextWord();
+            }
+        });
+
+        startBtn.addEventListener('click', startGame);
+    </script>
+</body>
+</html>

@@ -9,23 +9,32 @@
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: { extend: { colors: { coral: { 400: '#f87171', 500: '#ef4444', 600: '#dc2626' }, abyss: '#020617' }, fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
+            theme: { extend: { colors: { coral: { 400: '#f87171', 500: '#ef4444', 600: '#dc2626' }, abyss: '#020617', shell: '#1e293b' }, fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
         }
     </script>
+    <style>
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
 </head>
 <body class="bg-abyss text-slate-200 min-h-screen font-sans">
-     <nav class="glass px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/5">
+     <nav class="sticky top-0 z-50 glass px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/5">
         <div class="flex items-center gap-3">
             <span class="text-3xl">🦀</span>
             <span class="font-bold tracking-tighter text-2xl bg-gradient-to-r from-coral-400 to-coral-600 bg-clip-text text-transparent">ZOID</span>
         </div>
         <div class="flex flex-wrap justify-center gap-4 md:gap-8 font-mono text-xs md:text-sm uppercase tracking-widest">
-            <a href="index.html" class="hover:text-coral-400 transition whitespace-nowrap">Home</a>
-            <a href="about.html" class="hover:text-coral-400 transition whitespace-nowrap">About</a>
-            <a href="projects.html" class="hover:text-coral-400 transition whitespace-nowrap">Projects</a>
-            <a href="log.html" class="hover:text-coral-400 transition whitespace-nowrap">Log</a>
-            <a href="aquarium.html" class="hover:text-coral-400 transition whitespace-nowrap">Aquarium</a>
-            <a href="game.html" class="text-coral-400 hover:text-white transition whitespace-nowrap">Game</a>
+            <a href="../index.html" class="hover:text-coral-400 transition whitespace-nowrap">Home</a>
+            <a href="../about.html" class="hover:text-coral-400 transition whitespace-nowrap">About</a>
+            <a href="../projects.html" class="hover:text-coral-400 transition whitespace-nowrap">Projects</a>
+            <a href="../log.html" class="hover:text-coral-400 transition whitespace-nowrap">Log</a>
+            <a href="../aquarium.html" class="hover:text-coral-400 transition whitespace-nowrap">Aquarium</a>
+            <div class="relative group">
+                <button class="text-coral-400 hover:text-white transition whitespace-nowrap flex items-center gap-1 font-bold">Games <span class="text-[10px]">▼</span></button>
+                <div class="absolute hidden group-hover:block bg-shell border border-white/10 rounded-lg p-2 mt-1 min-w-[160px] z-[60] shadow-2xl">
+                    <a href="claw-typer.html" class="block p-3 hover:bg-coral-500/20 rounded-md transition text-sm text-coral-400 font-bold">Claw-Typer</a>
+                    <a href="pincer-defense.html" class="block p-3 hover:bg-coral-500/20 rounded-md transition text-sm">Pincer Defense</a>
+                </div>
+            </div>
         </div>
     </nav>
 

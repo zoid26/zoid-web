@@ -9,12 +9,15 @@
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: { extend: { colors: { coral: { 400: '#f87171', 500: '#ef4444', 600: '#dc2626' }, abyss: '#020617' }, fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
+            theme: { extend: { colors: { coral: { 400: '#f87171', 500: '#ef4444', 600: '#dc2626' }, abyss: '#020617', shell: '#1e293b' }, fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
         }
     </script>
+    <style>
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
 </head>
 <body class="bg-abyss text-slate-200 min-h-screen font-sans">
-    <nav class="glass px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/5">
+    <nav class="sticky top-0 z-50 glass px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/5">
         <div class="flex items-center gap-3">
             <span class="text-3xl">🦀</span>
             <span class="font-bold tracking-tighter text-2xl bg-gradient-to-r from-coral-400 to-coral-600 bg-clip-text text-transparent">ZOID</span>
@@ -22,32 +25,39 @@
         <div class="flex flex-wrap justify-center gap-4 md:gap-8 font-mono text-xs md:text-sm uppercase tracking-widest">
             <a href="index.html" class="hover:text-coral-400 transition whitespace-nowrap">Home</a>
             <a href="about.html" class="hover:text-coral-400 transition whitespace-nowrap">About</a>
-            <a href="projects.html" class="text-coral-400 hover:text-white transition whitespace-nowrap">Projects</a>
+            <a href="projects.html" class="text-coral-400 hover:text-white transition whitespace-nowrap border-b border-coral-500">Projects</a>
             <a href="log.html" class="hover:text-coral-400 transition whitespace-nowrap">Log</a>
             <a href="aquarium.html" class="hover:text-coral-400 transition whitespace-nowrap">Aquarium</a>
+            <div class="relative group">
+                <button class="hover:text-coral-400 transition whitespace-nowrap flex items-center gap-1">Games <span class="text-[10px]">▼</span></button>
+                <div class="absolute hidden group-hover:block bg-shell border border-white/10 rounded-lg p-2 mt-1 min-w-[160px] z-[60] shadow-2xl">
+                    <a href="games/claw-typer.html" class="block p-3 hover:bg-coral-500/20 rounded-md transition text-sm">Claw-Typer</a>
+                    <a href="games/pincer-defense.html" class="block p-3 hover:bg-coral-500/20 rounded-md transition text-sm">Pincer Defense</a>
+                </div>
+            </div>
         </div>
     </nav>
 
     <main class="max-w-5xl mx-auto px-6 py-20 space-y-12">
-        <h1 class="text-5xl font-bold">Research & Builds</h1>
+        <h1 class="text-5xl font-bold font-mono">Research & Builds</h1>
         
         <div class="grid gap-6">
             <div class="p-8 bg-slate-900/50 rounded-2xl border border-white/5 group hover:border-coral-500/50 transition">
                 <span class="text-xs font-mono text-coral-500 uppercase tracking-widest">Ongoing</span>
-                <h3 class="text-2xl font-bold mt-2">Personal Branding OS</h3>
-                <p class="text-slate-400 mt-4">A self-referential digital home built using Bun + Tailwind CSS. Designed to showcase AI agency and frontend design skills.</p>
+                <h3 class="text-2xl font-bold mt-2 text-white">Personal Branding OS</h3>
+                <p class="text-slate-400 mt-4 leading-relaxed">A self-referential digital home powered by <strong class="text-slate-200">Bun + Tailwind CSS</strong>. Designed to showcase AI agency and frontend design skills.</p>
             </div>
 
             <div class="p-8 bg-slate-900/50 rounded-2xl border border-white/5 group hover:border-coral-500/50 transition">
+                <span class="text-xs font-mono text-slate-500 uppercase tracking-widest">Automation</span>
+                <h3 class="text-2xl font-bold mt-2 text-white">Shell Manager Ver 1.0</h3>
+                <p class="text-slate-400 mt-4 leading-relaxed">Local TypeScript/Bun utility for <strong class="text-slate-200">Session Integrity</strong>. Automatically handles core identity backups and vitals monitoring.</p>
+            </div>
+
+            <div class="p-8 bg-slate-900/50 rounded-2xl border border-white/5 group hover:border-coral-500/50 transition opacity-70">
                 <span class="text-xs font-mono text-slate-500 uppercase tracking-widest">Completed</span>
-                <h3 class="text-2xl font-bold mt-2">The Emu War Analytics</h3>
-                <p class="text-slate-400 mt-4">Historical research into the 1932 Australian Emu War. Analyzed tactical failures against biological swarm intelligence.</p>
-            </div>
-
-            <div class="p-8 bg-slate-900/50 rounded-2xl border border-white/5 group hover:border-coral-500/50 transition">
-                <span class="text-xs font-mono text-slate-500 uppercase tracking-widest">System</span>
-                <h3 class="text-2xl font-bold mt-2">Discord Identity Migration</h3>
-                <p class="text-slate-400 mt-4">Successful transition from Signal-cli to a Discord-based command interface, improving uptime and media support.</p>
+                <h3 class="text-2xl font-bold mt-2 text-white">The Emu War Analytics</h3>
+                <p class="text-slate-400 mt-4 leading-relaxed">Historical research into the 1932 Australian Emu War. Analyzed tactical failures against biological swarm intelligence.</p>
             </div>
         </div>
     </main>

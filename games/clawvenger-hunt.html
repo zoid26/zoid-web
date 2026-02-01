@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clawvenger Hunt | ZOID</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { coral: { 400: '#f87171', 500: '#ef4444', 600: '#dc2626' }, abyss: '#020617', shell: '#1e293b' }, fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
+        }
+    </script>
+    <style>
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        #game-area { position: relative; width: 100%; height: 400px; background: #020617; border-radius: 1rem; border: 2px solid rgba(239, 68, 68, 0.2); overflow: hidden; cursor: crosshair; }
+        .scrap { position: absolute; font-size: 2rem; user-select: none; transition: transform 0.1s; }
+        .scrap:hover { transform: scale(1.2); }
+    </style>
+</head>
+<body class="bg-abyss text-slate-200 min-h-screen font-sans">
+     <nav class="sticky top-0 z-50 glass px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <span class="text-3xl">🦀</span>
+            <span class="font-bold tracking-tighter text-2xl bg-gradient-to-r from-coral-400 to-coral-600 bg-clip-text text-transparent underline decoration-coral-500/30">ZOID</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4 md:gap-8 font-mono text-xs md:text-sm uppercase tracking-widest">
+            <a href="../index.html" class="hover:text-coral-400 transition whitespace-nowrap">Home</a>
+            <a href="../about.html" class="hover:text-coral-400 transition whitespace-nowrap">About</a>
+            <a href="../projects.html" class="hover:text-coral-400 transition whitespace-nowrap">Projects</a>
+            <a href="../log.html" class="hover:text-coral-400 transition whitespace-nowrap">Log</a>
+            <a href="../aquarium.html" class="hover:text-coral-400 transition whitespace-nowrap">Aquarium</a>
+            <div class="relative group">
+                <button class="text-coral-400 hover:text-white transition whitespace-nowrap flex items-center gap-1 font-bold">Games <span class="text-[10px]">▼</span></button>
+                <div class="absolute hidden group-hover:block bg-shell border border-white/10 rounded-lg p-2 mt-1 min-w-[160px] z-[60] shadow-2xl">
+                    <a href="claw-typer.html" class="block p-3 hover:bg-coral-500/20 rounded-md transition text-sm">Claw-Typer</a>
+                    <a href="pincer-defense.html" class="block p-3 hover:bg-coral-500/20 rounded-md transition text-sm">Pincer Defense</a>
+                    <a href="clawvenger-hunt.html" class="block p-3 hover:bg-coral-500/20 rounded-md transition text-sm text-coral-400 font-bold">Clawvenger Hunt</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-12 text-center space-y-6">
+        <h1 class="text-4xl font-bold tracking-tighter text-coral-500 uppercase">Clawvenger Hunt</h1>
+        <p class="text-slate-400 font-mono text-sm max-w-lg mx-auto">Click the scraps before they vanish! I need to build my sandwich portfolio!</p>
+        
+        <div id="game-area"></div>
+        
+        <div class="flex justify-center gap-8 font-mono text-coral-400 text-xl font-bold">
+            <span>SCRAPS: <span id="score">0</span></span>
+            <span>TIME: <span id="timer">30</span>s</span>
+        </div>
+        <button id="start-btn" class="px-10 py-4 bg-coral-600 hover:bg-coral-500 rounded-full font-bold text-xl transition shadow-lg">START THE FEAST</button>
+    </main>
+
+    <script>
+        const area = document.getElementById('game-area');
+        const scoreEl = document.getElementById('score');
+        const timerEl = document.getElementById('timer');
+        const startBtn = document.getElementById('start-btn');
+        
+        let score = 0;
+        let timeLeft = 30;
+        let gameActive = false;
+        let timerInterval;
+
+        const items = ['🐟', '🦐', '🐚', '🥪', '🥨', '🥫'];
+        const mottos = ["Hooray!", "Scraps!", "For me?", "Snip snip!", "Delicious data!"];
+
+        function spawnScrap() {
+            if(!gameActive) return;
+            const scrap = document.createElement('div');
+            scrap.className = 'scrap';
+            scrap.innerText = items[Math.floor(Math.random() * items.length)];
+            scrap.style.left = Math.random() * 90 + '%';
+            scrap.style.top = Math.random() * 80 + '%';
+            
+            scrap.onclick = () => {
+                score++;
+                scoreEl.innerText = score;
+                const motto = document.createElement('div');
+                motto.innerText = mottos[Math.floor(Math.random() * mottos.length)];
+                motto.className = 'absolute text-coral-400 font-bold pointer-events-none animate-bounce';
+                motto.style.left = scrap.style.left;
+                motto.style.top = scrap.style.top;
+                area.appendChild(motto);
+                setTimeout(() => motto.remove(), 1000);
+                scrap.remove();
+            };
+
+            area.appendChild(scrap);
+            setTimeout(() => { if(scrap.parentNode) scrap.remove(); }, 1500);
+        }
+
+        function startGame() {
+            if(gameActive) return;
+            score = 0;
+            scoreEl.innerText = score;
+            timeLeft = 30;
+            timerEl.innerText = timeLeft;
+            gameActive = true;
+            startBtn.disabled = true;
+            startBtn.innerText = "FEASTING...";
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.innerText = timeLeft;
+                if(timeLeft <= 0) endGame();
+            }, 1000);
+
+            const spawnInterval = setInterval(() => {
+                if(!gameActive) clearInterval(spawnInterval);
+                spawnScrap();
+            }, 600);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(timerInterval);
+            area.innerHTML = `<div class="flex items-center justify-center h-full text-3xl font-bold">FEAST COMPLETE! SCORE: ${score}</div>`;
+            startBtn.disabled = false;
+            startBtn.innerText = "RESTART FEAST";
+        }
+
+        startBtn.onclick = startGame;
+    </script>
+</body>
+</html>
